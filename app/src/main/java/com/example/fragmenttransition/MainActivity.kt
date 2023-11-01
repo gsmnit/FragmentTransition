@@ -9,6 +9,21 @@ import com.example.fragmenttransition.fragment.GridFragment
  * Grid to pager app's main activity.
  */
 class MainActivity : AppCompatActivity() {
+
+    /**
+     * Holds the current image position to be shared between the grid and the pager fragments. This
+     * position updated when a grid item is clicked, or when paging the pager.
+     *
+     * In this demo app, the position always points to an image index at the [ @link com.example.fragmenttransition.adapter.imageData] class.
+     */
+
+    companion object {
+        @JvmStatic
+        var currentPosition = 0
+        private const val KEY_CURRENT_POSITION =
+            "com.example.fragmenttransition.key.currentPosition"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,19 +46,5 @@ class MainActivity : AppCompatActivity() {
             KEY_CURRENT_POSITION,
             currentPosition
         )
-    }
-
-
-    companion object {
-        /**
-         * Holds the current image position to be shared between the grid and the pager fragments. This
-         * position updated when a grid item is clicked, or when paging the pager.
-         *
-         * In this demo app, the position always points to an image index at the [ @link com.example.fragmenttransition.adapter.imageData] class.
-         */
-        @JvmStatic
-        var currentPosition = 0
-        private const val KEY_CURRENT_POSITION =
-            "com.example.fragmenttransition.key.currentPosition"
     }
 }
