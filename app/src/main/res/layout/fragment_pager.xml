@@ -15,8 +15,8 @@
   ~ limitations under the License.
   -->
 
-<FrameLayout
+<androidx.viewpager.widget.ViewPager
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_container"
+    android:id="@+id/view_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>

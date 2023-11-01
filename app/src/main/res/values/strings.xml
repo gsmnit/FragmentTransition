@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FragmentTransition</string>
+    <string name="image_description">Image</string>
 </resources>
