@@ -9,13 +9,16 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-import javax.sql.DataSource;
+
 import static com.example.fragmenttransition.adapter.ImageData.IMAGE_DRAWABLES;
 
+import com.bumptech.glide.load.DataSource;
 import com.example.fragmenttransition.MainActivity;
 import com.example.fragmenttransition.R;
 
@@ -24,6 +27,7 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.fragmenttransition.fragment.ImagePagerFragment;
 
 /**
  * A fragment for displaying a grid of images.
@@ -74,7 +78,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
      */
     private static class ViewHolderListenerImpl implements ViewHolderListener {
 
-        private Fragment fragment;
+        private final Fragment fragment;
         private AtomicBoolean enterTransitionStarted;
 
         ViewHolderListenerImpl(Fragment fragment) {
@@ -112,8 +116,9 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
             ((TransitionSet) fragment.getExitTransition()).excludeTarget(view, true);
 
             ImageView transitioningView = view.findViewById(R.id.card_image);
-            fragment.getFragmentManager()
-                    .beginTransaction()
+            FragmentManager fragmentManager = fragment.getActivity().getSupportFragmentManager();
+
+            fragmentManager.beginTransaction()
                     .setReorderingAllowed(true) // Optimize for shared element transition
                     .addSharedElement(transitioningView, transitioningView.getTransitionName())
                     .replace(R.id.fragment_container, new ImagePagerFragment(), ImagePagerFragment.class
@@ -152,7 +157,8 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ImageViewHolde
             int adapterPosition = getAdapterPosition();
             setImage(adapterPosition);
             // Set the string value of the image resource as the unique transition name for the view.
-            image.setTransitionName(String.valueOf(IMAGE_DRAWABLES[adapterPosition]));
+            ViewCompat.setTransitionName(image,String.valueOf(IMAGE_DRAWABLES[adapterPosition]));
+//            image.setTransitionName(String.valueOf(IMAGE_DRAWABLES[adapterPosition]));
         }
 
         void setImage(final int adapterPosition) {

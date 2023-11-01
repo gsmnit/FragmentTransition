@@ -1,6 +1,7 @@
 package com.example.fragmenttransition.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +25,16 @@ import java.util.Map;
 public class GridFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private final String LOGTAG = "GridFragment";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        Log.i(LOGTAG,"onCreateView");
         recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_grid, container, false);
         recyclerView.setAdapter(new GridAdapter(this));
+
 
         prepareTransitions();
         postponeEnterTransition();
@@ -49,6 +53,7 @@ public class GridFragment extends Fragment {
      * navigating back from the grid.
      */
     private void scrollToPosition() {
+        Log.i(LOGTAG,"on scrollToPosition");
         recyclerView.addOnLayoutChangeListener(new OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v,
@@ -67,6 +72,7 @@ public class GridFragment extends Fragment {
                 // layout manager children), or it's not completely visible.
                 if (viewAtPosition == null || layoutManager
                         .isViewPartiallyVisible(viewAtPosition, false, true)) {
+                    Log.i(LOGTAG,"on scrollToPosition inside if");
                     recyclerView.post(() -> layoutManager.scrollToPosition(MainActivity.getCurrentPosition()));
                 }
             }
@@ -77,23 +83,27 @@ public class GridFragment extends Fragment {
      * Prepares the shared element transition to the pager fragment, as well as the other transitions
      * that affect the flow.
      */
-    private void prepareTransitions() {
+    private void prepareTransitions(){
+        Log.i(LOGTAG,"on prINT LOG");
+
         setExitTransition(TransitionInflater.from(getContext())
                 .inflateTransition(R.transition.grid_exit_transition));
 
-        // A similar mapping is set at the ImagePagerFragment with a setEnterSharedElementCallback.
         setExitSharedElementCallback(
                 new SharedElementCallback() {
                     @Override
                     public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+                        Log.i("LOGTAG","onMapSharedElements");
                         // Locate the ViewHolder for the clicked position.
                         RecyclerView.ViewHolder selectedViewHolder = recyclerView
                                 .findViewHolderForAdapterPosition(MainActivity.getCurrentPosition());
                         if (selectedViewHolder == null) {
+                            Log.i("LOGTAG","onMapSharedElements");
                             return;
                         }
 
-                        // Map the first shared element name to the child ImageView.
+                        Log.i("LOGTAG","onMapSharedElements");
+//                         Map the first shared element name to the child ImageView.
                         sharedElements
                                 .put(names.get(0), selectedViewHolder.itemView.findViewById(R.id.card_image));
                     }

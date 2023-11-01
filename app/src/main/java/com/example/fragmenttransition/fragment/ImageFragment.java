@@ -1,24 +1,11 @@
 package com.example.fragmenttransition.fragment;
-/*
- * Copyright 2018 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +44,8 @@ public class ImageFragment extends Fragment {
 
         // Just like we do when binding views at the grid, we set the transition name to be the string
         // value of the image res.
-        view.findViewById(R.id.image).setTransitionName(String.valueOf(imageRes));
+        ViewCompat.setTransitionName(view.findViewById(R.id.image),String.valueOf(imageRes));
+//        view.findViewById(R.id.image).setTransitionName(String.valueOf(imageRes));
 
         // Load the image with Glide to prevent OOM error when the image drawables are very large.
         Glide.with(this)
