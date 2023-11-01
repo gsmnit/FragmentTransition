@@ -13,6 +13,7 @@ import android.transition.TransitionInflater;
 import android.view.View.OnLayoutChangeListener;
 import com.example.fragmenttransition.R;
 import com.example.fragmenttransition.adapter.GridAdapter;
+import com.example.fragmenttransition.MainActivity;
 
 import java.util.List;
 import java.util.Map;
@@ -61,12 +62,12 @@ public class GridFragment extends Fragment {
                                        int oldBottom) {
                 recyclerView.removeOnLayoutChangeListener(this);
                 final RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-                View viewAtPosition = layoutManager.findViewByPosition(MainActivity.currentPosition);
+                View viewAtPosition = layoutManager.findViewByPosition(MainActivity.getCurrentPosition());
                 // Scroll to position if the view for the current position is null (not currently part of
                 // layout manager children), or it's not completely visible.
                 if (viewAtPosition == null || layoutManager
                         .isViewPartiallyVisible(viewAtPosition, false, true)) {
-                    recyclerView.post(() -> layoutManager.scrollToPosition(MainActivity.currentPosition));
+                    recyclerView.post(() -> layoutManager.scrollToPosition(MainActivity.getCurrentPosition()));
                 }
             }
         });
@@ -87,7 +88,7 @@ public class GridFragment extends Fragment {
                     public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
                         // Locate the ViewHolder for the clicked position.
                         RecyclerView.ViewHolder selectedViewHolder = recyclerView
-                                .findViewHolderForAdapterPosition(MainActivity.currentPosition);
+                                .findViewHolderForAdapterPosition(MainActivity.getCurrentPosition());
                         if (selectedViewHolder == null) {
                             return;
                         }
