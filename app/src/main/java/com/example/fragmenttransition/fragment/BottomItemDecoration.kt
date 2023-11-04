@@ -13,7 +13,7 @@ class BottomItemDecoration : RecyclerView.ItemDecoration(){
     ) {
         super.getItemOffsets(outRect, view, parent, state)
         if(parent.getChildAdapterPosition(view) == state.itemCount-1){
-            outRect.bottom = 50
+            outRect.bottom = 200
         }
     }
 

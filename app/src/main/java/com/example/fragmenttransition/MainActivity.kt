@@ -17,19 +17,19 @@ class MainActivity : AppCompatActivity() {
      * In this demo app, the position always points to an image index at the [ @link com.example.fragmenttransition.adapter.imageData] class.
      */
 
-    companion object {
-        @JvmStatic
-        var currentPosition = 0
-        private const val KEY_CURRENT_POSITION =
-            "com.example.fragmenttransition.key.currentPosition"
-    }
+//    companion object {
+//        @JvmStatic
+//        var currentPosition = 0
+//        private const val KEY_CURRENT_POSITION =
+//            "com.example.fragmenttransition.key.currentPosition"
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (savedInstanceState != null) {
-            currentPosition =
-                savedInstanceState.getInt(KEY_CURRENT_POSITION, 0)
+//            currentPosition =
+//                savedInstanceState.getInt(KEY_CURRENT_POSITION, 0)
             // Return here to prevent adding additional GridFragments when changing orientation.
             return
         }
@@ -42,9 +42,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(
-            KEY_CURRENT_POSITION,
-            currentPosition
-        )
+//        outState.putInt(
+//            KEY_CURRENT_POSITION,
+//            currentPosition
+//        )
     }
 }

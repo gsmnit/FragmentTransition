@@ -32,5 +32,4 @@ public class GridFragment extends Fragment {
         recyclerView.addItemDecoration(new BottomItemDecoration());
     }
 
-
 }
